@@ -23,11 +23,11 @@ function addBasketProduct(
     const img = document.createElement("img");
     img.innerHTML = productInfo.imageUrl;
     img.setAttribute("src", productInfo.imageUrl);
-    img.setAttribute("width", "40%");
+    img.setAttribute("class", "basketImg");
 
     const btn = document.createElement("button");
     btn.textContent = "Supprimer";
-    btn.setAttribute("class", "bg-dark text-light mt-2");
+    btn.setAttribute("class", "bg-dark text-light mt-2 suppBtn");
     btn.setAttribute("data-id", productInfo._id);
 
     const lenses = document.createElement("div");
@@ -44,7 +44,7 @@ function addBasketProduct(
         for (let i = 0; i != basketContent.length; i++) {
             if (basketContent[i].id === id) {
                 basketContent.splice(i, 1);
-                break;
+                break;  
             }
         }
         localStorage.setItem("basketContent", JSON.stringify(basketContent));
@@ -80,7 +80,7 @@ function isAdresse(value) {
 }
 
 function checkFormErrors(orderValidity) {
-    const error = document.getElementById("error");
+    const error = document.querySelector("#error");
     error.innerHTML = "";
     let inputIds = ["name", "firstname", "email", "adresse", "city"];
     let inputTexts = ["nom", "prénom", "mail", "adresse", "ville"];
@@ -88,6 +88,7 @@ function checkFormErrors(orderValidity) {
         const input = document.getElementById(inputIds[i]);
         if (input.value === "") {
             const errorMessage = document.createElement("p");
+            errorMessage.setAttribute("class", "errorMessage");
             errorMessage.innerHTML = "Merci d'indiquer votre " + inputTexts[i] + ".";
             orderValidity = false;
             error.appendChild(errorMessage);
@@ -99,7 +100,7 @@ function checkFormErrors(orderValidity) {
             ) {
                 if (isAlpha(input.value) === false) {
                     const errorMessage = document.createElement("p");
-                    errorMessage.setAttribute("class", "text-warning");
+                    errorMessage.setAttribute("class", "text-error");
                     errorMessage.innerHTML = "Merci d'écrire votre " + inputTexts[i] + " en toutes lettres.";
                     orderValidity = false;
                     error.appendChild(errorMessage);
@@ -108,7 +109,7 @@ function checkFormErrors(orderValidity) {
             if (inputIds[i] === "email") {
                 if (validateEmail(input.value) === false) {
                     const errorMessage = document.createElement("p");
-                    errorMessage.setAttribute("class", "text-warning");
+                    errorMessage.setAttribute("class", "text-error");
                     errorMessage.innerHTML = "Merci d'écrire un " + inputTexts[i] + " valide.";
                     orderValidity = false;
                     error.appendChild(errorMessage);
@@ -117,7 +118,7 @@ function checkFormErrors(orderValidity) {
             if (inputIds[i] === "adresse") {
                 if (isAdresse(input.value) === false) {
                     const errorMessage = document.createElement("p");
-                    errorMessage.setAttribute("class", "text-warning");
+                    errorMessage.setAttribute("class", "text-error");
                     errorMessage.innerHTML = "Merci d'écrire une " + inputTexts[i] + " valide.";
                     orderValidity = false;
                     error.appendChild(errorMessage);
