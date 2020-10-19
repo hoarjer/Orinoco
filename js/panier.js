@@ -36,8 +36,8 @@ function addBasketProduct(
 
     const price = document.createElement("div");
     price.setAttribute("class", "col-4 mt-5");
-    price.textContent = productInfo.price/100 + " euros";
-    totalPrice = totalPrice + productInfo.price/100;
+    price.textContent = productInfo.price / 100 + " euros";
+    totalPrice = totalPrice + productInfo.price / 100;
 
     btn.addEventListener("click", function (e) {
         const id = e.target.getAttribute("data-id");
@@ -45,7 +45,7 @@ function addBasketProduct(
         for (let i = 0; i != basketContent.length; i++) {
             if (basketContent[i].id === id) {
                 basketContent.splice(i, 1);
-                break;  
+                break;
             }
         }
         localStorage.setItem("basketContent", JSON.stringify(basketContent));
@@ -154,7 +154,7 @@ function sendOrder() {
             localStorage.setItem("basketContent", JSON.stringify([]));
             localStorage.setItem("orderConfirmation", response.orderId);
             console.log(response.orderId);
-            window.location.href = "commande.html";
+            // window.location.href = "commande.html";
         })
         .catch(function (err) {
             console.log(err);
@@ -162,6 +162,28 @@ function sendOrder() {
                 alert("Serveur HS");
             }
         });   
+
+    // fetch("http://localhost:3000/api/cameras/order", {
+    //     method: "POST",
+    //     body: JSON.stringify(command),
+    //     headers: { "Content-type": "application/json" }
+    // })
+    //     .then(response => {
+    //         response.json();
+    //         console.log(response);
+    //     })
+    //     .then(response => {
+    //         localStorage.setItem("basketContent", JSON.stringify([]));
+    //         localStorage.setItem("orderConfirmation", response.orderId);
+            
+    //         // window.location.href = "commande.html";
+    //     })
+    //     .catch ((err) => {
+    //     console.log(err);
+    //     if (err === 0) {
+    //         alert("Problème de serveur, merci de revenir plus tard.");
+    //     }
+    // });
 }
 
 function emptyBasketMessage(container) {
@@ -218,6 +240,7 @@ btn.addEventListener("click", function (e) {
     orderValidity = checkFormErrors(orderValidity);
 
     if (orderValidity === true) {
+        confirm("Confirmez-vous l'envoie de votre commande ?");
         sendOrder();
     }
 
