@@ -36,7 +36,8 @@ function addBasketProduct(
 
     const price = document.createElement("div");
     price.setAttribute("class", "col-4 mt-5");
-    price.textContent = productInfo.price + " euros";
+    price.textContent = productInfo.price/100 + " euros";
+    totalPrice = totalPrice + productInfo.price/100;
 
     btn.addEventListener("click", function (e) {
         const id = e.target.getAttribute("data-id");
@@ -50,7 +51,6 @@ function addBasketProduct(
         localStorage.setItem("basketContent", JSON.stringify(basketContent));
         window.location.href = "panier.html";
     })
-
 
     basket.appendChild(product);
     basket.appendChild(line);
@@ -137,14 +137,8 @@ function sendOrder() {
     const adresse = document.getElementById("adresse").value;
     const city = document.getElementById("city").value;
 
-    const formInformation =
-        [
-            name,
-            firstname,
-            mail,
-            adresse,
-            city
-        ];
+    const formInformation = new infoForm(name, firstname, mail, adresse, city);
+
     const basketContent = JSON.parse(localStorage.getItem("basketContent"));
 
     let idOrder = [];
@@ -154,38 +148,20 @@ function sendOrder() {
         idOrder.push(basketContent[i].id);
         console.log(basketContent[i].id);
     }
-    const command = [formInformation, idOrder];
-    // post("http://localhost:3000/api/cameras/order", command)
-    //     .then(function (response) {
-    //         localStorage.setItem("basketContent", JSON.stringify([]));
-    //         localStorage.setItem("orderConfirmation", response.orderId);
-    //         console.log(response.orderId);
-    //         window.location.href = "confirmation.html";
-    //     })
-    //     .catch(function (err) {
-    //         console.log(err);
-    //         if (err === 0) {
-    //             alert("Serveur HS");
-    //         }
-    //     });
-    fetch('http://localhost:3000/api/cameras/order', command), {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-type': 'application/json',
-        }
-        .then(response => response.json())
-        .then((responseJson) => {
-            console.log(responseJson);
+    const command = new orderInfo(formInformation, idOrder);
+    post("http://localhost:3000/api/cameras/order", command)
+        .then(function (response) {
             localStorage.setItem("basketContent", JSON.stringify([]));
             localStorage.setItem("orderConfirmation", response.orderId);
+            console.log(response.orderId);
+            window.location.href = "commande.html";
         })
-        .catch((err) => {
+        .catch(function (err) {
             console.log(err);
-            alert("Problème de serveur, merci de revenir plus tard.");
-        })
-    }
-    
+            if (err === 0) {
+                alert("Serveur HS");
+            }
+        });   
 }
 
 function emptyBasketMessage(container) {
@@ -198,7 +174,7 @@ function emptyBasketMessage(container) {
 }
 
 function totalPrice() {
-    totalPrice + productInfo.price;
+    return totalPrice + productInfo.price;
 }
 
 fetch("http://localhost:3000/api/cameras/")
@@ -225,6 +201,7 @@ fetch("http://localhost:3000/api/cameras/")
                 }
             }
             const totalPriceBasket = document.getElementById("total-price");
+            totalPriceBasket.setAttribute("class", "h4");
             totalPriceBasket.textContent = "Total : " + totalPrice + " euros";
         }
     })

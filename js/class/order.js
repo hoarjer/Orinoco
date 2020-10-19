@@ -3,15 +3,15 @@ class infoForm {
         this.name = name;
         this.firstname = firstname;
         this.mail = mail;
-        this.adress = adresse;
+        this.adresse = adresse;
         this.city = city;
     }
 }
 
-class orderInfo extends infoForm {
-    constructor(idOrder) {
-        super();
-        this.id = idOrder;
+class orderInfo {
+    constructor(infoForm, idOrder) {
+        this.infoForm = infoForm;
+        this.idOrder = idOrder;
     }
 }
 
@@ -21,9 +21,5 @@ class Basket {
         this.lense = lense;
         this.price = price;
         this.totalPrice = totalPrice;
-    }
-    totalPriceCalc() {
-        this.totalPrice + this.price;
-        console.log(totalPrice);
     }
 }

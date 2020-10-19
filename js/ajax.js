@@ -43,7 +43,8 @@ function post(url, jsonBody) {
                 }
             }
         };
-        request.send();
+        request.send(JSON.stringify(jsonBody));
+        console.log(jsonBody);
     });
     return promise;
 }
