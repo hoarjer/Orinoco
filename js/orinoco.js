@@ -1,7 +1,7 @@
 const url = "http://localhost:3000/api/cameras";
 
 /////////////////////////////////////////////////// Ajouter les éléments des produits en HTML/////////////////////////////////
-function addProduct(responseProduct, section) {
+function addProduct(response) {
   const div = document.createElement('div');
   div.className = "col-9 col-md-6 col-lg-4 m-4 mouseover";
 
@@ -10,27 +10,27 @@ function addProduct(responseProduct, section) {
 
   const name = document.createElement('h3');
   name.setAttribute("class", "h3 text-center");
-  name.textContent = responseProduct.name;
+  name.textContent = response.name;
 
   const img = document.createElement('img');
   img.setAttribute("class", "card-img-top");
-  img.setAttribute("src", responseProduct.imageUrl);
+  img.setAttribute("src", response.imageUrl);
 
   const description = document.createElement('p');
   description.setAttribute("class", "m-4");
-  description.textContent = responseProduct.description;
+  description.textContent = response.description;
 
   const lenses = document.createElement('p');
   lenses.setAttribute("class", "ml-4");
-  lenses.textContent = "Les optiques : " + responseProduct.lenses;
+  lenses.textContent = "Les optiques : " + response.lenses;
 
   const price = document.createElement('p');
   price.setAttribute("class", "text-center h4 ml-4");
-  price.textContent = responseProduct.price + " euros";
+  price.textContent = "prix : " + response.price/100 + " €";
 
   const link = document.createElement('a');
   link.setAttribute("class", "stretched-link");
-  link.setAttribute("href", "produit.html?id=" + responseProduct._id);
+  link.setAttribute("href", "produit.html?id=" + response._id);
 
   document.querySelector('#product-list').appendChild(div);
   div.appendChild(card);

@@ -46,7 +46,7 @@ function post(url, jsonBody) {
         request.send(JSON.stringify(jsonBody));
         console.log(jsonBody);
     });
-    return promise;
+    console.log(promise);
 }
 
 

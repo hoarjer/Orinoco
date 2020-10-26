@@ -33,7 +33,7 @@ function addProductInfo(response) {
     description.setAttribute("class", "mb-2 pb-4");
 
     const price = document.createElement("p");
-    price.textContent = response.price + " euros";
+    price.textContent = response.price / 100 + " euros";
     price.setAttribute("class", "h4 m-2 pb-2")
 
 
@@ -54,6 +54,13 @@ function addProductInfo(response) {
         addToBasket(selectedLenses);
     });
 
+    const basketBtn = document.createElement("button");
+    basketBtn.textContent = "Voir le panier";
+    basketBtn.setAttribute("class", "btn btn-dark p-3 ml-3");
+    basketBtn.addEventListener("click", () => {
+        window.location.href = "panier.html";
+    });
+
     for (i = 0; i < response.lenses.length; i++) {
         const option = document.createElement("option");
         option.setAttribute("value", response.lenses[i]);
@@ -69,21 +76,21 @@ function addProductInfo(response) {
     div.appendChild(lenses);
     div.appendChild(price);
     div.appendChild(btn);
+    div.appendChild(basketBtn);
 }
 
 ///////////////////////////////// Ajouter la div information produit ///////////////
 function getProduct() {
-    
+
     // récupérer l'url avec le bon Id
     function getId() {
         const params = (new URL(window.location)).searchParams;
         let id = params.get("id");
-        // const urlId = "http://localhost:3000/api/cameras/" + id;
         return id;
     }
     id = getId();
     console.log(id);
-    
+
     // récupérer la réponse 
     fetch("http://localhost:3000/api/cameras/" + id)
         .then(response => response.json())

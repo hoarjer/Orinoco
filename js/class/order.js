@@ -1,17 +1,17 @@
-class infoForm {
-    constructor(name, firstname, mail, adresse, city) {
-        this.name = name;
-        this.firstname = firstname;
-        this.mail = mail;
-        this.adresse = adresse;
+class InfoForm {
+    constructor(lastName, firstName, email, address, city) {
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.email = email;
+        this.address = address;
         this.city = city;
     }
 }
 
-class orderInfo {
-    constructor(infoForm, idOrder) {
-        this.infoForm = infoForm;
-        this.idOrder = idOrder;
+class OrderInfo {
+    constructor(infoForm, idOrders) {
+        this.contact = infoForm;
+        this.products = idOrders;
     }
 }
 
