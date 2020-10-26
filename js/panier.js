@@ -153,22 +153,8 @@ function sendOrder() {
         idOrders.push(basketContent[i].id);
         console.log(idOrders);
     }
-    const command = new OrderInfo(formInformation, idOrders);
-    const jsonCommand = JSON.stringify(command); 
-    // post("http://localhost:3000/api/cameras/order", command)
-    //     .then(response => response.json())
-    //     .then(response => {
-    //         localStorage.setItem("basketContent", JSON.stringify([]));
-    //         localStorage.setItem("orderConfirmation", response.orderId);
-    //         console.log(response.orderId);
-    //         window.location.href = "commande.html";
-    //     })
-        // .catch(function (err) {
-        //     console.log(err);
-        //     if (err != 0) {
-        //         alert("Serveur HS");
-        //     }
-    //     });   
+    const command = new OrderInfo(formInformation, idOrders); 
+     
     const option = {
         method: "POST",
         body: JSON.stringify(command),      
@@ -176,6 +162,7 @@ function sendOrder() {
             "Content-Type": "application/json"
         }
     }
+
     fetch("http://localhost:3000/api/cameras/order", option)
         .then(response => response.json())
         .then(response => {
@@ -185,11 +172,10 @@ function sendOrder() {
             console.log(response.contact);
             window.location.href = "commande.html";
         })
-        // .catch((err) => alert("Problème de serveur, merci de revenir plus tard."));
         .catch(function (err) {
             console.log(err);
             if (err != 0) {
-                alert("Serveur HS");
+                alert("Problème de serveur, merci de revenir plus tard.");
             }
         });
         
