@@ -1,7 +1,7 @@
 
-class Product {
-    constructor(id, selectedLenses) {
-        this.lenses = selectedLenses; 
+class Camera {
+    constructor(id, selectedLense) {
+        this.lenses = selectedLense; 
         this.id = id;
     }
 }

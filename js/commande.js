@@ -36,22 +36,12 @@ function addOrderElements() {
     let backHome = document.createElement("button");
     backHome.textContent = "Retourner à la page d'accueil";
     backHome.setAttribute("class", "btn-dark text-light mb-1 backHome shadow")
-
-    //////// LocalStorage effacer au retour à la homePage /////
-    backHome.addEventListener("click", function (e) {
+    backHome.addEventListener("click", function(e) {
         window.location.href = "index.html";
-        localStorage.clear();
     })
 
-    let homePage = document.querySelector(".navbar-brand");
-    homePage.addEventListener("click", function(e) {
-        localStorage.clear();
-    })
-
-    let navHomePage = document.querySelector("#homePage");
-    navHomePage.addEventListener("click", function(e) {
-        localStorage.clear();
-    })
+    // suppression du local storage //
+    localStorage.clear();
     
 ///////// Arborescence ///////////
     orderContainer.append(orderName);

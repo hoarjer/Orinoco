@@ -9,7 +9,7 @@ function addProduct(response) {
   card.className = "card mb-4 mb-lg-0 shadow";
 
   const name = document.createElement('h3');
-  name.setAttribute("class", "h3 text-center");
+  name.setAttribute("class", "text-center");
   name.textContent = response.name;
 
   const img = document.createElement('img');
@@ -26,55 +26,51 @@ function addProduct(response) {
 
   const price = document.createElement('p');
   price.setAttribute("class", "text-center h4 ml-4");
-  price.textContent = "prix : " + response.price/100 + " €";
+  price.textContent = "prix : " + response.price / 100 + " €";
 
   const link = document.createElement('a');
   link.setAttribute("class", "stretched-link");
   link.setAttribute("href", "produit.html?id=" + response._id);
 
   document.querySelector('#product-list').appendChild(div);
-  div.appendChild(card);
-  card.appendChild(link);
-  link.appendChild(img);
-  card.appendChild(name);
-  card.appendChild(description);
-  card.appendChild(lenses);
-  card.appendChild(price);
+  div.append(card);
+  card.append(link);
+  link.append(img);
+  card.append(name);
+  card.append(description);
+  card.append(lenses);
+  card.append(price);
 }
+
+// Ajouter le nombre d'article du panier //
+function basketContentNav() {
+  if (localStorage.length != 0) {
+    let basketContent = JSON.parse(localStorage.getItem("basketContent"));
+    let basketNavlink = document.querySelector(".basket");
+    basketNavlink.textContent = "Panier(" + basketContent.length + ")";
+  }
+}
+
 //////////////////////////////// Rajouter tous les produits //////////////:
-function getAllProducts() {
+function addAllProducts() {
   fetch(url)
-  .then(response => response.json())
-  .then(response => {
-    for (let i = 0; i < response.length; i++) {
-      addProduct(response[i]);
-    }
-  })
-  .catch ((err) => {
-    console.log(err);
-    alert("Problème de serveur, merci de revenir plus tard.");
-  }); 
+    .then(response => response.json())
+    .then(response => {
+      for (let i = 0; i < response.length; i++) {
+        addProduct(response[i]);
+        basketContentNav();
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      alert("Problème de serveur, merci de revenir plus tard.");
+    });
 }
 
-getAllProducts();
- 
+addAllProducts();
 
-// get(url)
-//   .then(function (response) {
-//     // const section = document.querySelector(".row");
 
-// //////////////////////////////////// Ajouter les cartes des appareils photos /////////////
-//     for (i = 0; i < response.length; i++) {
-//       addProduct(response[i]);
-//     }
-//   })
-//   .catch (function (err){
-//     console.log(err);
-//     if (err === 0) {
-//       // La requète ajax est annulée
-//       alert("Problème de serveur, merci de revenir plus tard.")
-//     }
-//   });
+
 
 
 

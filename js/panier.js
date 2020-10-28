@@ -1,3 +1,13 @@
+// Ajouter le nombre d'article du panier //
+function basketContentNav() {
+    if (localStorage.length != 0) {
+        let basketContent = JSON.parse(localStorage.getItem("basketContent"));
+        let basketNavlink = document.querySelector(".basket");
+        basketNavlink.textContent = "Panier(" + basketContent.length + ")";
+    }
+}
+basketContentNav();
+
 /////////////////////////////// Ajouter les éléments html ////////////////////////////
 function addBasketProduct(
     productInfo,
@@ -10,7 +20,7 @@ function addBasketProduct(
     const product = document.createElement("div");
     product.setAttribute("class", "row justify-content-around mb-5");
 
-    //////// lingne de séparation ///////////////
+    // ligne de séparation //
     const line = document.createElement("div");
     line.setAttribute("class", "col");
     line.innerHTML = "<hr>";
@@ -40,6 +50,7 @@ function addBasketProduct(
     const price = document.createElement("div");
     price.setAttribute("class", "col-4 mt-5");
     price.textContent = productInfo.price / 100 + " €";
+    // Calcul du prix total //
     totalPrice = totalPrice + productInfo.price / 100;
 
     /////////// évènements "supprimer" /////////
@@ -53,34 +64,37 @@ function addBasketProduct(
             }
         }
         localStorage.setItem("basketContent", JSON.stringify(basketContent));
+        // Changement du nombre d'article du lien de navigation "panier" //
+        let basketNavlink = document.querySelector(".basket");
+        basketNavlink.textContent = "Panier(" + basketContent.length + ")";
         window.location.href = "panier.html";
     })
 
-    basket.appendChild(product);
-    basket.appendChild(line);
-    product.appendChild(divTitle);
-    divTitle.appendChild(name);
-    divTitle.appendChild(img);
-    divTitle.appendChild(btn);
-    product.appendChild(lenses);
-    product.appendChild(price);
+    basket.append(product);
+    basket.append(line);
+    product.append(divTitle);
+    divTitle.append(name);
+    divTitle.append(img);
+    divTitle.append(btn);
+    product.append(lenses);
+    product.append(price);
 
     return totalPrice;
 }
 
 ///////////// fonctions de vérification formulaires ///////
-function isAlpha(value) {
-    return /[a-zA-Z]+/.test(value);
+function alphaRegexe(value) {
+    return /[A-Za-z]+/.test(value);
 }
 
-function validateEmail(value) {
+function emailRegexe(value) {
     if (/^\w+([\.-]?\w+)+@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)) {
         return true;
     }
     return false;
 }
 
-function isAdresse(value) {
+function adressRegexe(value) {
     return /\w+/.test(value);
 }
 
@@ -103,7 +117,7 @@ function checkFormErrors(orderValidity) {
                 inputIds[i] === "firstname" ||
                 inputIds[i] === "city"
             ) {
-                if (isAlpha(input.value) === false) {
+                if (alphaRegexe(input.value) === false) {
                     const errorMessage = document.createElement("p");
                     errorMessage.setAttribute("class", "text-error");
                     errorMessage.innerHTML = "Merci d'écrire votre " + inputTexts[i] + " en toutes lettres.";
@@ -112,7 +126,7 @@ function checkFormErrors(orderValidity) {
                 }
             }
             if (inputIds[i] === "email") {
-                if (validateEmail(input.value) === false) {
+                if (emailRegexe(input.value) === false) {
                     const errorMessage = document.createElement("p");
                     errorMessage.setAttribute("class", "text-error");
                     errorMessage.innerHTML = "Merci d'écrire un " + inputTexts[i] + " valide.";
@@ -121,7 +135,7 @@ function checkFormErrors(orderValidity) {
                 }
             }
             if (inputIds[i] === "adresse") {
-                if (isAdresse(input.value) === false) {
+                if (adressRegexe(input.value) === false) {
                     const errorMessage = document.createElement("p");
                     errorMessage.setAttribute("class", "text-error");
                     errorMessage.innerHTML = "Merci d'écrire une " + inputTexts[i] + " valide.";
@@ -134,36 +148,8 @@ function checkFormErrors(orderValidity) {
     return orderValidity;
 }
 
-
-function sendOrder() {
-    const lastName = document.getElementById("name").value;
-    const firstName = document.getElementById("firstname").value;
-    const email = document.getElementById("email").value;
-    const address = document.getElementById("adresse").value;
-    const city = document.getElementById("city").value;
-
-    const formInformation = new InfoForm(lastName, firstName, email, address, city);
-
-    const basketContent = JSON.parse(localStorage.getItem("basketContent"));
-
-    let idOrders = [];
-
-    for (let i = 0; i < basketContent.length; i++) {
-        basketContent[i].id;
-        idOrders.push(basketContent[i].id);
-        console.log(idOrders);
-    }
-    const command = new OrderInfo(formInformation, idOrders); 
-     
-    const option = {
-        method: "POST",
-        body: JSON.stringify(command),      
-        headers: {
-            "Content-Type": "application/json"
-        }
-    }
-
-    fetch("http://localhost:3000/api/cameras/order", option)
+function post(url, option){
+    fetch(url, option)
         .then(response => response.json())
         .then(response => {
             localStorage.setItem("orderConfirmation", response.orderId);
@@ -178,14 +164,45 @@ function sendOrder() {
                 alert("Problème de serveur, merci de revenir plus tard.");
             }
         });
-        
 }
 
+function sendOrder() {
+    const lastName = document.getElementById("name").value;
+    const firstName = document.getElementById("firstname").value;
+    const email = document.getElementById("email").value;
+    const address = document.getElementById("adresse").value;
+    const city = document.getElementById("city").value;
+
+    const formInformations = new InfoForm(lastName, firstName, email, address, city);
+
+    const basketContent = JSON.parse(localStorage.getItem("basketContent"));
+
+    let idOrders = [];
+
+    for (let i = 0; i < basketContent.length; i++) {
+        basketContent[i].id;
+        idOrders.push(basketContent[i].id);
+    }
+    const command = new OrderInfo(formInformations, idOrders); 
+     
+    const option = {
+        method: "POST",
+        body: JSON.stringify(command),      
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }
+    // envoi des informations à l'API //
+    post("http://localhost:3000/api/cameras/order", option);
+        
+}
+/////// Message quand le panier est vide //////
 function emptyBasketMessage(container) {
     const emptyBasket = document.createElement("div");
     emptyBasket.setAttribute("class", "m-3");
     emptyBasket.textContent = "Votre panier est vide";
     container.appendChild(emptyBasket);
+    localStorage.clear();
 
     return container;
 }
@@ -198,8 +215,7 @@ function getBasket() {
 
             const basketContent = JSON.parse(localStorage.getItem("basketContent"));
             const basket = document.querySelector(".basket-container");
-            // if(basketContent.length === 0) {
-            if (basketContent != null && basketContent.length < 1) {
+            if(localStorage.length == 0 || basketContent.length == 0) {
                 emptyBasketMessage(basket);
             } else {
                 let totalPrice = 0;
@@ -225,9 +241,8 @@ function getBasket() {
             console.log(err);
             alert("Problème de serveur, merci de revenir plus tard.");
         });
-
+    // Envoi du formulaire avec évènement sur le bouton "envoyer" //
     const btn = document.getElementById("btn");
-
     btn.addEventListener("click", function (e) {
         e.preventDefault();
         let orderValidity = true;
@@ -237,7 +252,6 @@ function getBasket() {
             confirm("Confirmez-vous l'envoie de votre commande ?");
             sendOrder();
         }
-
     });
 }
 getBasket();
