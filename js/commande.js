@@ -11,7 +11,7 @@ function addOrderElements() {
 /////////// Création des éléments //////////
     let orderName = document.createElement("p");
     orderName.setAttribute("class", "h1 mt-1 mb-5 text-center");
-    orderName.textContent = name + " , votre commande : ";
+    orderName.textContent = name + " , votre commande";
 
     let orderNum = document.createElement("p");
     orderNum.setAttribute("class", "text-center p-2 order shadow");
