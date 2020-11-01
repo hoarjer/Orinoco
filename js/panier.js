@@ -84,7 +84,6 @@ function addBasketProduct(
 
 ///////////// fonctions de vérification formulaires ///////
 function alphaRegexe(value) {
-    console.log(/[A-Za-z]/.test(value)) ;
     return /[A-Za-z]/.test(value);
 }
 
@@ -96,57 +95,134 @@ function adressRegexe(value) {
     return /\w+/.test(value);
 }
 
-///////////////////////////////////// Vérification des formulaires ////////////////
-function checkFormErrors(orderValidity) {
-    const error = document.querySelector("#error");
-    let inputIds = ["name", "firstname", "email", "adresse", "city"];
-    let inputTexts = ["nom", "prénom", "mail", "adresse", "ville"];
-    for (let i = 0; i < inputIds.length; i++) {
-        const input = document.getElementById(inputIds[i]);
-        if (input.value === "") {
+/////////// vérification du formulaire de nom //////
+function checkNameForm(orderValidity) {
+    const name = document.querySelector(".name");
+    const input = document.querySelector("#name");
+    if (input.value === "") {
+        const errorMessage = document.createElement("p");
+        errorMessage.setAttribute("class", "errorMessage");
+        errorMessage.innerHTML = "Merci d'indiquer votre nom.";
+        orderValidity = false;
+        name.append(errorMessage);
+    } else {
+        if (alphaRegexe(input.value) === false) {
             const errorMessage = document.createElement("p");
-            errorMessage.setAttribute("class", "errorMessage");
-            errorMessage.innerHTML = "Merci d'indiquer votre " + inputTexts[i] + ".";
+            errorMessage.setAttribute("class", "text-error");
+            errorMessage.innerHTML = "Merci d'écrire votre nom en toutes lettres.";
             orderValidity = false;
-            error.appendChild(errorMessage);
-        } else {
-            if (
-                inputIds[i] === "name" ||
-                inputIds[i] === "firstname" ||
-                inputIds[i] === "city"
-            ) {
-                if (alphaRegexe(input.value) === false) {
-                    const errorMessage = document.createElement("p");
-                    errorMessage.setAttribute("class", "text-error");
-                    errorMessage.innerHTML = "Merci d'écrire votre " + inputTexts[i] + " en toutes lettres.";
-                    orderValidity = false;
-                    error.appendChild(errorMessage);
-                }
-            }
-            if (inputIds[i] === "email") {
-                if (emailRegexe(input.value) === false) {
-                    const errorMessage = document.createElement("p");
-                    errorMessage.setAttribute("class", "text-error");
-                    errorMessage.innerHTML = "Merci d'écrire un " + inputTexts[i] + " valide.";
-                    orderValidity = false;
-                    error.appendChild(errorMessage);
-                }
-            }
-            if (inputIds[i] === "adresse") {
-                if (adressRegexe(input.value) === false) {
-                    const errorMessage = document.createElement("p");
-                    errorMessage.setAttribute("class", "text-error");
-                    errorMessage.innerHTML = "Merci d'écrire une " + inputTexts[i] + " valide.";
-                    orderValidity = false;
-                    error.appendChild(errorMessage);
-                }
-            }
+            name.appendChild(errorMessage);
         }
     }
     return orderValidity;
 }
+////// verification du formulaire de prénom /////////:
+function checkfirstnameForm(orderValidity) {
+    const firstname = document.querySelector(".firstname");
+    const input = document.querySelector("#firstname");
+    if (input.value === "") {
+        const errorMessage = document.createElement("p");
+        errorMessage.setAttribute("class", "errorMessage");
+        errorMessage.innerHTML = "Merci d'indiquer votre prénom.";
+        orderValidity = false;
+        firstname.append(errorMessage);
+    } else {
+        if (alphaRegexe(input.value) === false) {
+            const errorMessage = document.createElement("p");
+            errorMessage.setAttribute("class", "text-error");
+            errorMessage.innerHTML = "Merci d'écrire votre prénom en toutes lettres.";
+            orderValidity = false;
+            firstname.appendChild(errorMessage);
+        }
+    }
+    return orderValidity;
+}
+///////// Vérification du formulaire d'email /////
+function checkEmailForm(orderValidity) {
+    const email = document.querySelector(".email");
+    const input = document.querySelector("#email");
+    if (input.value === "") {
+        const errorMessage = document.createElement("p");
+        errorMessage.setAttribute("class", "errorMessage");
+        errorMessage.innerHTML = "Merci d'indiquer votre email.";
+        orderValidity = false;
+        email.append(errorMessage);
+    } else {
+        if (emailRegexe(input.value) === false) {
+            const errorMessage = document.createElement("p");
+            errorMessage.setAttribute("class", "text-error");
+            errorMessage.innerHTML = "Merci d'indiquer un email valide.";
+            orderValidity = false;
+            email.appendChild(errorMessage);
+        }
+    }
+    return orderValidity;
+}
+////// Vérification du formulaire d'adresse //////
+function checkAdresseForm(orderValidity) {
+    const adresseError = document.querySelector(".adresse");
+    const input = document.querySelector("#adresse");
+    if (input.value === "") {
+        const errorMessage = document.createElement("p");
+        errorMessage.setAttribute("class", "errorMessage");
+        errorMessage.innerHTML = "Merci d'indiquer votre adresse.";
+        orderValidity = false;
+        adresseError.append(errorMessage);
+    } else {
+        if (adressRegexe(input.value) === false) {
+            const errorMessage = document.createElement("p");
+            errorMessage.setAttribute("class", "text-error");
+            errorMessage.innerHTML = "Merci d'écrire une adresse valide.";
+            orderValidity = false;
+            adresseError.appendChild(errorMessage);
+        }
+    }
+    return orderValidity;
+}
+///////// Vérification du formulaire de ville //////
+function checkCityForm(orderValidity) {
+    const cityError = document.querySelector(".city");
+    const input = document.querySelector("#city");
+    if (input.value === "") {
+        const errorMessage = document.createElement("p");
+        errorMessage.setAttribute("class", "errorMessage");
+        errorMessage.innerHTML = "Merci d'indiquer votre ville.";
+        orderValidity = false;
+        cityError.append(errorMessage);
+    } else {
+        if (alphaRegexe(input.value) === false) {
+            const errorMessage = document.createElement("p");
+            errorMessage.setAttribute("class", "text-error");
+            errorMessage.innerHTML = "Merci d'écrire votre ville en toutes lettres.";
+            orderValidity = false;
+            name.appendChild(errorMessage);
+        }
+    }
+    return orderValidity;
+}
+//////// Vérifictaion des formulaires //////
+function checkFormErrors(orderValidity) {
+    checkNameForm();
+    checkfirstnameForm();
+    checkEmailForm();
+    checkAdresseForm();
+    checkCityForm();
 
-function post(url, option){
+    return orderValidity;
+}
+//////// bouton de confirmation de commande //////
+function succesOrder() {
+    const div = document.querySelector(".successOrder");
+    btn.setAttribute("style", "display:none");
+    const succesOrder = document.createElement("button");
+    succesOrder.setAttribute("class", "col btn alert alert-primary mb-5");
+    // succesOrder.setAttribute("href", "commande.html");
+    succesOrder.setAttribute("role", "alert");
+    succesOrder.innerHTML = "<a href= \"commande.html\" class= \"stretched-link\">Confirmaton de votre commande.</a>";
+    div.append(succesOrder);
+}
+
+function post(url, option) {
     fetch(url, option)
         .then(response => response.json())
         .then(response => {
@@ -180,17 +256,17 @@ function sendOrder() {
         idOrders.push(basketContent[i].id);
     }
 
-    const command = new OrderInfo(formInformations, idOrders); 
-     
+    const command = new OrderInfo(formInformations, idOrders);
+
     const option = {
         method: "POST",
-        body: JSON.stringify(command),      
+        body: JSON.stringify(command),
         headers: {
             "Content-Type": "application/json"
         }
     }
     // envoi des informations à l'API //
-    post("http://localhost:3000/api/cameras/order", option);       
+    post("http://localhost:3000/api/cameras/order", option);
 }
 
 /////// Message quand le panier est vide //////
@@ -210,7 +286,7 @@ function getBasket() {
         .then(response => {
             const basketContent = JSON.parse(localStorage.getItem("basketContent"));
             const basket = document.querySelector(".basket-container");
-            if(localStorage.length == 0 || basketContent.length == 0) {
+            if (localStorage.length == 0 || basketContent.length == 0) {
                 emptyBasketMessage(basket);
             } else {
                 let totalPrice = 0;
@@ -242,9 +318,11 @@ function getBasket() {
         e.preventDefault();
         let orderValidity = true;
         orderValidity = checkFormErrors(orderValidity);
+        // orderValidity = checkNameForm(orderValidity);
 
         if (orderValidity === true) {
-            confirm("Confirmez-vous l'envoie de votre commande ?");
+            // confirm("Confirmez-vous l'envoie de votre commande ?");
+            succesOrder();
             sendOrder();
         }
     });
