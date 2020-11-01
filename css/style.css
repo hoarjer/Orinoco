@@ -60,12 +60,11 @@ footer {
   display: flex;
 }
 
-
-
 .basketImg {
   width: 40%;
   border-radius: 5px;
 }
+
 .suppBtn , .backHome{
 border-radius: 5px;
 }

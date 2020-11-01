@@ -84,14 +84,12 @@ function addBasketProduct(
 
 ///////////// fonctions de vérification formulaires ///////
 function alphaRegexe(value) {
-    return /[A-Za-z]+/.test(value);
+    console.log(/[A-Za-z]/.test(value)) ;
+    return /[A-Za-z]/.test(value);
 }
 
 function emailRegexe(value) {
-    if (/^\w+([\.-]?\w+)+@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)) {
-        return true;
-    }
-    return false;
+    return /^\w+([\.-]?\w+)+@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value);
 }
 
 function adressRegexe(value) {
@@ -154,9 +152,7 @@ function post(url, option){
         .then(response => {
             localStorage.setItem("orderConfirmation", response.orderId);
             localStorage.setItem("orderNameConfirmation", response.contact.firstName);
-            console.log(localStorage);
-            console.log(response.contact);
-            window.location.href = "commande.html";
+            // window.location.href = "commande.html";
         })
         .catch(function (err) {
             console.log(err);
@@ -183,6 +179,7 @@ function sendOrder() {
         basketContent[i].id;
         idOrders.push(basketContent[i].id);
     }
+
     const command = new OrderInfo(formInformations, idOrders); 
      
     const option = {
@@ -193,9 +190,9 @@ function sendOrder() {
         }
     }
     // envoi des informations à l'API //
-    post("http://localhost:3000/api/cameras/order", option);
-        
+    post("http://localhost:3000/api/cameras/order", option);       
 }
+
 /////// Message quand le panier est vide //////
 function emptyBasketMessage(container) {
     const emptyBasket = document.createElement("div");
@@ -208,11 +205,9 @@ function emptyBasketMessage(container) {
 }
 
 function getBasket() {
-
     fetch("http://localhost:3000/api/cameras/")
         .then(response => response.json())
         .then(response => {
-
             const basketContent = JSON.parse(localStorage.getItem("basketContent"));
             const basket = document.querySelector(".basket-container");
             if(localStorage.length == 0 || basketContent.length == 0) {
