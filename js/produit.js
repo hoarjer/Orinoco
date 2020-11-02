@@ -61,8 +61,7 @@ function addProductInfo(response) {
         const selectedLense = lenses.value;
         if (selectedLense != "Choix d'une option") {
             // rajouter au panier
-            // alert("ajouter au panier");
-            addBasketMessage();
+            successBasketMessage();
             addToBasket(selectedLense);
             // + 1 article lien nav panier
             let basketContent = JSON.parse(localStorage.getItem("basketContent"));
@@ -73,7 +72,7 @@ function addProductInfo(response) {
         }
 
     });
-
+////// bouton panier //////
     const basketBtn = document.createElement("button");
     basketBtn.innerHTML = "<span>Voir le panier </span>";
     basketBtn.setAttribute("class", "btn button btn-dark p-3");
@@ -100,8 +99,8 @@ function basketContentNav() {
         basketNavlink.textContent = "Panier(" + basketContent.length + ")";
     }
 }
-
-function addBasketMessage() {
+////// apparition du message confirmant l'ajout au panier ///////
+function successBasketMessage() {
     const messageBox = document.querySelector(".messageBox");
     const messageDiv = document.createElement("div");
     messageDiv.setAttribute("class", "message");
@@ -111,7 +110,7 @@ function addBasketMessage() {
     messageBox.append(messageDiv);
     messageDiv.append(successMessage);
 }
-
+///////// message disant qu'un choix d'option est obligatoir /////
 function selectMessage() {
     const messageBox = document.querySelector(".messageBox");
     const messageDiv = document.createElement("div");
@@ -122,7 +121,7 @@ function selectMessage() {
     messageBox.append(messageDiv);
     messageDiv.append(selectMessage);
 }
-
+///////// suppression des messages //////
 function deletMessage() {
     const messageDiv = document.querySelector(".message");
     messageDiv.parentNode.removeChild(messageDiv);

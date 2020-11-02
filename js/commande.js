@@ -53,5 +53,5 @@ function addOrderElements() {
     orderContainer.append(backHome);
 
 }
-
+////// Affichage des infos dans les élémenst html //////
 addOrderElements();

@@ -1,4 +1,4 @@
-// Ajouter le nombre d'article du panier //
+// Ajouter le nombre d'article du panier nav //
 function basketContentNav() {
     if (localStorage.length != 0) {
         let basketContent = JSON.parse(localStorage.getItem("basketContent"));
@@ -9,12 +9,7 @@ function basketContentNav() {
 basketContentNav();
 
 /////////////////////////////// Ajouter les éléments html ////////////////////////////
-function addBasketProduct(
-    productInfo,
-    productBasket,
-    basketContent,
-    totalPrice
-) {
+function addBasketProduct(productInfo, productBasket, basketContent, totalPrice) {
     const basket = document.querySelector(".basket-container");
 
     const product = document.createElement("div");
@@ -95,121 +90,6 @@ function adressRegexe(value) {
     return /\w+/.test(value);
 }
 
-// /////////// vérification du formulaire de nom //////
-// function checkNameForm(orderValidity) {
-//     const name = document.querySelector(".name");
-//     const input = document.querySelector("#name");
-//     if (input.value === "") {
-//         const errorMessage = document.createElement("p");
-//         errorMessage.setAttribute("class", "errorMessage");
-//         errorMessage.innerHTML = "Merci d'indiquer votre nom.";
-//         orderValidity = false;
-//         name.append(errorMessage);
-//     } else {
-//         if (alphaRegexe(input.value) === false) {
-//             const errorMessage = document.createElement("p");
-//             errorMessage.setAttribute("class", "text-error");
-//             errorMessage.innerHTML = "Merci d'écrire votre nom en toutes lettres.";
-//             orderValidity = false;
-//             name.appendChild(errorMessage);
-//         }
-//     }
-//     return orderValidity;
-// }
-// ////// verification du formulaire de prénom /////////:
-// function checkfirstnameForm(orderValidity) {
-//     const firstname = document.querySelector(".firstname");
-//     const input = document.querySelector("#firstname");
-//     if (input.value === "") {
-//         const errorMessage = document.createElement("p");
-//         errorMessage.setAttribute("class", "errorMessage");
-//         errorMessage.innerHTML = "Merci d'indiquer votre prénom.";
-//         orderValidity = false;
-//         firstname.append(errorMessage);
-//     } else {
-//         if (alphaRegexe(input.value) === false) {
-//             const errorMessage = document.createElement("p");
-//             errorMessage.setAttribute("class", "text-error");
-//             errorMessage.innerHTML = "Merci d'écrire votre prénom en toutes lettres.";
-//             orderValidity = false;
-//             firstname.appendChild(errorMessage);
-//         }
-//     }
-//     return orderValidity;
-// }
-// ///////// Vérification du formulaire d'email /////
-// function checkEmailForm(orderValidity) {
-//     const email = document.querySelector(".email");
-//     const input = document.querySelector("#email");
-//     if (input.value === "") {
-//         const errorMessage = document.createElement("p");
-//         errorMessage.setAttribute("class", "errorMessage");
-//         errorMessage.innerHTML = "Merci d'indiquer votre email.";
-//         orderValidity = false;
-//         email.append(errorMessage);
-//     } else {
-//         if (emailRegexe(input.value) === false) {
-//             const errorMessage = document.createElement("p");
-//             errorMessage.setAttribute("class", "text-error");
-//             errorMessage.innerHTML = "Merci d'indiquer un email valide.";
-//             orderValidity = false;
-//             email.appendChild(errorMessage);
-//         }
-//     }
-//     return orderValidity;
-// }
-// ////// Vérification du formulaire d'adresse //////
-// function checkAdresseForm(orderValidity) {
-//     const adresseError = document.querySelector(".adresse");
-//     const input = document.querySelector("#adresse");
-//     if (input.value === "") {
-//         const errorMessage = document.createElement("p");
-//         errorMessage.setAttribute("class", "errorMessage");
-//         errorMessage.innerHTML = "Merci d'indiquer votre adresse.";
-//         orderValidity = false;
-//         adresseError.append(errorMessage);
-//     } else {
-//         if (adressRegexe(input.value) === false) {
-//             const errorMessage = document.createElement("p");
-//             errorMessage.setAttribute("class", "text-error");
-//             errorMessage.innerHTML = "Merci d'écrire une adresse valide.";
-//             orderValidity = false;
-//             adresseError.appendChild(errorMessage);
-//         }
-//     }
-//     return orderValidity;
-// }
-// ///////// Vérification du formulaire de ville //////
-// function checkCityForm(orderValidity) {
-//     const cityError = document.querySelector(".city");
-//     const input = document.querySelector("#city");
-//     if (input.value === "") {
-//         const errorMessage = document.createElement("p");
-//         errorMessage.setAttribute("class", "errorMessage");
-//         errorMessage.innerHTML = "Merci d'indiquer votre ville.";
-//         orderValidity = false;
-//         cityError.append(errorMessage);
-//     } else {
-//         if (alphaRegexe(input.value) === false) {
-//             const errorMessage = document.createElement("p");
-//             errorMessage.setAttribute("class", "text-error");
-//             errorMessage.innerHTML = "Merci d'écrire votre ville en toutes lettres.";
-//             orderValidity = false;
-//             name.appendChild(errorMessage);
-//         }
-//     }
-//     return orderValidity;
-// }
-// //////// Vérifictaion des formulaires //////
-// function checkFormErrors(orderValidity) {
-//     checkNameForm();
-//     checkfirstnameForm();
-//     checkEmailForm();
-//     checkAdresseForm();
-//     checkCityForm();
-//     return orderValidity;
-// }
-
 /////////////////////////////////// Vérification des formulaires ////////////////
 function checkFormErrors(orderValidity) {
     const info = document.querySelector(".info");
@@ -269,7 +149,7 @@ function deletErrorDiv() {
 }
 
 //////// bouton de confirmation de commande //////
-function succesOrder() {
+function successOrder() {
     const div = document.querySelector(".successOrder");
     btn.setAttribute("style", "display:none");
     const successOrder = document.createElement("button");
@@ -278,7 +158,7 @@ function succesOrder() {
     successOrder.innerHTML = "<a href= \"commande.html\" class= \"stretched-link\"><span>Confirmation de votre commande </span></a>";
     div.append(successOrder);
 }
-
+////// fonction d'envoie //////
 function post(url, option) {
     fetch(url, option)
         .then(response => response.json())
@@ -294,7 +174,7 @@ function post(url, option) {
             }
         });
 }
-
+////// envoi du formulaire ///////
 function sendOrder() {
     const lastName = document.getElementById("name").value;
     const firstName = document.getElementById("firstname").value;
@@ -336,7 +216,7 @@ function emptyBasketMessage(container) {
 
     return container;
 }
-
+////// récupération des données du panier //////
 function getBasket() {
     fetch("http://localhost:3000/api/cameras/")
         .then(response => response.json())
@@ -369,7 +249,11 @@ function getBasket() {
             console.log(err);
             alert("Problème de serveur, merci de revenir plus tard.");
         });
-    // Envoi du formulaire avec évènement sur le bouton "envoyer" //
+}
+getBasket();
+
+//////// envoi des info de la commande avec évènement click sur bouton "envoyer" ///// 
+function send() {
     const btn = document.getElementById("btn");
     btn.addEventListener("click", function (e) {
         e.preventDefault();
@@ -380,9 +264,9 @@ function getBasket() {
 
         if (orderValidity === true) {
             // confirm("Confirmez-vous l'envoie de votre commande ?");
-            succesOrder();
+            successOrder();
             sendOrder();
         }
     });
 }
-getBasket();
+send();
