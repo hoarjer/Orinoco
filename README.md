@@ -10,7 +10,7 @@ Du dossier cloné, ouvrez le terminal de commande et tappez "npm install" puis "
 
 Le serveur devrait fonctionner en "localhost" avec le port "3000" par défaut.
 
-Vous pouvez désormais utiliser l'application.
+Vous pouvez désormais utiliser l'application en allant sur https://hoarjer.github.io/Orinoco/.
 
 Merci.
 
