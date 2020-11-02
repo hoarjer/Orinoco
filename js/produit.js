@@ -46,25 +46,37 @@ function addProductInfo(response) {
     price.textContent = response.price / 100 + " euros";
     price.setAttribute("class", "h4 m-2 pb-2")
 
+    const divBtn = document.createElement("div");
+    divBtn.setAttribute("class", "messageBox");
+
     const btn = document.createElement("button");
-    btn.textContent = "Ajouter au panier";
-    btn.setAttribute("class", "btn btn-dark p-3")
+    btn.innerHTML = "<span>Ajouter au panier </span>";
+    btn.setAttribute("class", "btn btn-dark mb-2 p-3 button")
     btn.addEventListener("click", () => {
+        const messageDiv = document.createElement("div");
+        messageDiv.setAttribute("class", "message");
+        divBtn.append(messageDiv);
+        deletMessage();
         const lenses = document.querySelector("select");
         const selectedLense = lenses.value;
+        if (selectedLense != "Choix d'une option") {
+            // rajouter au panier
+            // alert("ajouter au panier");
+            addBasketMessage();
+            addToBasket(selectedLense);
+            // + 1 article lien nav panier
+            let basketContent = JSON.parse(localStorage.getItem("basketContent"));
+            let basketNavlink = document.querySelector(".basket");
+            basketNavlink.textContent = "Panier(" + basketContent.length + ")";
+        } else {
+            selectMessage();
+        }
 
-        // rajouter au panier
-        alert("ajouter au panier");
-        addToBasket(selectedLense);
-        // + 1 article lien nav panier
-        let basketContent = JSON.parse(localStorage.getItem("basketContent"));
-        let basketNavlink = document.querySelector(".basket");
-        basketNavlink.textContent = "Panier(" + basketContent.length + ")";
     });
 
     const basketBtn = document.createElement("button");
-    basketBtn.textContent = "Voir le panier";
-    basketBtn.setAttribute("class", "btn btn-dark p-3 ml-3");
+    basketBtn.innerHTML = "<span>Voir le panier </span>";
+    basketBtn.setAttribute("class", "btn button btn-dark p-3");
     basketBtn.addEventListener("click", () => {
         window.location.href = "panier.html";
     });
@@ -75,7 +87,8 @@ function addProductInfo(response) {
     div.appendChild(description);
     div.appendChild(lenses);
     div.appendChild(price);
-    div.appendChild(btn);
+    div.appendChild(divBtn);
+    divBtn.appendChild(btn);
     div.appendChild(basketBtn);
 }
 
@@ -86,6 +99,33 @@ function basketContentNav() {
         let basketNavlink = document.querySelector(".basket");
         basketNavlink.textContent = "Panier(" + basketContent.length + ")";
     }
+}
+
+function addBasketMessage() {
+    const messageBox = document.querySelector(".messageBox");
+    const messageDiv = document.createElement("div");
+    messageDiv.setAttribute("class", "message");
+    let successMessage = document.createElement("div");
+    successMessage.setAttribute("class", "col mt-2 alert alert-success text-center anim shadow");
+    successMessage.innerHTML = "Votre article à bien été ajouté au panier";
+    messageBox.append(messageDiv);
+    messageDiv.append(successMessage);
+}
+
+function selectMessage() {
+    const messageBox = document.querySelector(".messageBox");
+    const messageDiv = document.createElement("div");
+    messageDiv.setAttribute("class", "message");
+    let selectMessage = document.createElement("div");
+    selectMessage.setAttribute("class", "col mt-2 alert alert-danger text-center anim shadow");
+    selectMessage.innerHTML = "Merci de choisir une option";
+    messageBox.append(messageDiv);
+    messageDiv.append(selectMessage);
+}
+
+function deletMessage() {
+    const messageDiv = document.querySelector(".message");
+    messageDiv.parentNode.removeChild(messageDiv);
 }
 
 ///////////////////////////////// Ajouter la div information produit ///////////////
@@ -108,7 +148,8 @@ function getProduct() {
         })
         .catch((err) => {
             console.log(err);
-            alert("Problème de serveur, merci de revenir plus tard.");
+            // alert("Problème de serveur, merci de revenir plus tard.");
+            addBasketMessage();
         });
 
 }

@@ -34,8 +34,8 @@ function addOrderElements() {
     thanks.textContent = "Merci d'avoir passer commande chez Orinoco !";
 
     let backHome = document.createElement("button");
-    backHome.textContent = "Retourner à la page d'accueil";
-    backHome.setAttribute("class", "btn-dark text-light mb-1 backHome shadow")
+    backHome.innerHTML = "<span>Retourner à la page d'accueil </span>";
+    backHome.setAttribute("class", "btn-dark text-light mb-1 backHome shadow button")
     backHome.addEventListener("click", function(e) {
         window.location.href = "index.html";
     })

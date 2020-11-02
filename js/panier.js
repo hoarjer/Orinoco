@@ -95,131 +95,188 @@ function adressRegexe(value) {
     return /\w+/.test(value);
 }
 
-/////////// vérification du formulaire de nom //////
-function checkNameForm(orderValidity) {
-    const name = document.querySelector(".name");
-    const input = document.querySelector("#name");
-    if (input.value === "") {
-        const errorMessage = document.createElement("p");
-        errorMessage.setAttribute("class", "errorMessage");
-        errorMessage.innerHTML = "Merci d'indiquer votre nom.";
-        orderValidity = false;
-        name.append(errorMessage);
-    } else {
-        if (alphaRegexe(input.value) === false) {
-            const errorMessage = document.createElement("p");
-            errorMessage.setAttribute("class", "text-error");
-            errorMessage.innerHTML = "Merci d'écrire votre nom en toutes lettres.";
-            orderValidity = false;
-            name.appendChild(errorMessage);
-        }
-    }
-    return orderValidity;
-}
-////// verification du formulaire de prénom /////////:
-function checkfirstnameForm(orderValidity) {
-    const firstname = document.querySelector(".firstname");
-    const input = document.querySelector("#firstname");
-    if (input.value === "") {
-        const errorMessage = document.createElement("p");
-        errorMessage.setAttribute("class", "errorMessage");
-        errorMessage.innerHTML = "Merci d'indiquer votre prénom.";
-        orderValidity = false;
-        firstname.append(errorMessage);
-    } else {
-        if (alphaRegexe(input.value) === false) {
-            const errorMessage = document.createElement("p");
-            errorMessage.setAttribute("class", "text-error");
-            errorMessage.innerHTML = "Merci d'écrire votre prénom en toutes lettres.";
-            orderValidity = false;
-            firstname.appendChild(errorMessage);
-        }
-    }
-    return orderValidity;
-}
-///////// Vérification du formulaire d'email /////
-function checkEmailForm(orderValidity) {
-    const email = document.querySelector(".email");
-    const input = document.querySelector("#email");
-    if (input.value === "") {
-        const errorMessage = document.createElement("p");
-        errorMessage.setAttribute("class", "errorMessage");
-        errorMessage.innerHTML = "Merci d'indiquer votre email.";
-        orderValidity = false;
-        email.append(errorMessage);
-    } else {
-        if (emailRegexe(input.value) === false) {
-            const errorMessage = document.createElement("p");
-            errorMessage.setAttribute("class", "text-error");
-            errorMessage.innerHTML = "Merci d'indiquer un email valide.";
-            orderValidity = false;
-            email.appendChild(errorMessage);
-        }
-    }
-    return orderValidity;
-}
-////// Vérification du formulaire d'adresse //////
-function checkAdresseForm(orderValidity) {
-    const adresseError = document.querySelector(".adresse");
-    const input = document.querySelector("#adresse");
-    if (input.value === "") {
-        const errorMessage = document.createElement("p");
-        errorMessage.setAttribute("class", "errorMessage");
-        errorMessage.innerHTML = "Merci d'indiquer votre adresse.";
-        orderValidity = false;
-        adresseError.append(errorMessage);
-    } else {
-        if (adressRegexe(input.value) === false) {
-            const errorMessage = document.createElement("p");
-            errorMessage.setAttribute("class", "text-error");
-            errorMessage.innerHTML = "Merci d'écrire une adresse valide.";
-            orderValidity = false;
-            adresseError.appendChild(errorMessage);
-        }
-    }
-    return orderValidity;
-}
-///////// Vérification du formulaire de ville //////
-function checkCityForm(orderValidity) {
-    const cityError = document.querySelector(".city");
-    const input = document.querySelector("#city");
-    if (input.value === "") {
-        const errorMessage = document.createElement("p");
-        errorMessage.setAttribute("class", "errorMessage");
-        errorMessage.innerHTML = "Merci d'indiquer votre ville.";
-        orderValidity = false;
-        cityError.append(errorMessage);
-    } else {
-        if (alphaRegexe(input.value) === false) {
-            const errorMessage = document.createElement("p");
-            errorMessage.setAttribute("class", "text-error");
-            errorMessage.innerHTML = "Merci d'écrire votre ville en toutes lettres.";
-            orderValidity = false;
-            name.appendChild(errorMessage);
-        }
-    }
-    return orderValidity;
-}
-//////// Vérifictaion des formulaires //////
-function checkFormErrors(orderValidity) {
-    checkNameForm();
-    checkfirstnameForm();
-    checkEmailForm();
-    checkAdresseForm();
-    checkCityForm();
+// /////////// vérification du formulaire de nom //////
+// function checkNameForm(orderValidity) {
+//     const name = document.querySelector(".name");
+//     const input = document.querySelector("#name");
+//     if (input.value === "") {
+//         const errorMessage = document.createElement("p");
+//         errorMessage.setAttribute("class", "errorMessage");
+//         errorMessage.innerHTML = "Merci d'indiquer votre nom.";
+//         orderValidity = false;
+//         name.append(errorMessage);
+//     } else {
+//         if (alphaRegexe(input.value) === false) {
+//             const errorMessage = document.createElement("p");
+//             errorMessage.setAttribute("class", "text-error");
+//             errorMessage.innerHTML = "Merci d'écrire votre nom en toutes lettres.";
+//             orderValidity = false;
+//             name.appendChild(errorMessage);
+//         }
+//     }
+//     return orderValidity;
+// }
+// ////// verification du formulaire de prénom /////////:
+// function checkfirstnameForm(orderValidity) {
+//     const firstname = document.querySelector(".firstname");
+//     const input = document.querySelector("#firstname");
+//     if (input.value === "") {
+//         const errorMessage = document.createElement("p");
+//         errorMessage.setAttribute("class", "errorMessage");
+//         errorMessage.innerHTML = "Merci d'indiquer votre prénom.";
+//         orderValidity = false;
+//         firstname.append(errorMessage);
+//     } else {
+//         if (alphaRegexe(input.value) === false) {
+//             const errorMessage = document.createElement("p");
+//             errorMessage.setAttribute("class", "text-error");
+//             errorMessage.innerHTML = "Merci d'écrire votre prénom en toutes lettres.";
+//             orderValidity = false;
+//             firstname.appendChild(errorMessage);
+//         }
+//     }
+//     return orderValidity;
+// }
+// ///////// Vérification du formulaire d'email /////
+// function checkEmailForm(orderValidity) {
+//     const email = document.querySelector(".email");
+//     const input = document.querySelector("#email");
+//     if (input.value === "") {
+//         const errorMessage = document.createElement("p");
+//         errorMessage.setAttribute("class", "errorMessage");
+//         errorMessage.innerHTML = "Merci d'indiquer votre email.";
+//         orderValidity = false;
+//         email.append(errorMessage);
+//     } else {
+//         if (emailRegexe(input.value) === false) {
+//             const errorMessage = document.createElement("p");
+//             errorMessage.setAttribute("class", "text-error");
+//             errorMessage.innerHTML = "Merci d'indiquer un email valide.";
+//             orderValidity = false;
+//             email.appendChild(errorMessage);
+//         }
+//     }
+//     return orderValidity;
+// }
+// ////// Vérification du formulaire d'adresse //////
+// function checkAdresseForm(orderValidity) {
+//     const adresseError = document.querySelector(".adresse");
+//     const input = document.querySelector("#adresse");
+//     if (input.value === "") {
+//         const errorMessage = document.createElement("p");
+//         errorMessage.setAttribute("class", "errorMessage");
+//         errorMessage.innerHTML = "Merci d'indiquer votre adresse.";
+//         orderValidity = false;
+//         adresseError.append(errorMessage);
+//     } else {
+//         if (adressRegexe(input.value) === false) {
+//             const errorMessage = document.createElement("p");
+//             errorMessage.setAttribute("class", "text-error");
+//             errorMessage.innerHTML = "Merci d'écrire une adresse valide.";
+//             orderValidity = false;
+//             adresseError.appendChild(errorMessage);
+//         }
+//     }
+//     return orderValidity;
+// }
+// ///////// Vérification du formulaire de ville //////
+// function checkCityForm(orderValidity) {
+//     const cityError = document.querySelector(".city");
+//     const input = document.querySelector("#city");
+//     if (input.value === "") {
+//         const errorMessage = document.createElement("p");
+//         errorMessage.setAttribute("class", "errorMessage");
+//         errorMessage.innerHTML = "Merci d'indiquer votre ville.";
+//         orderValidity = false;
+//         cityError.append(errorMessage);
+//     } else {
+//         if (alphaRegexe(input.value) === false) {
+//             const errorMessage = document.createElement("p");
+//             errorMessage.setAttribute("class", "text-error");
+//             errorMessage.innerHTML = "Merci d'écrire votre ville en toutes lettres.";
+//             orderValidity = false;
+//             name.appendChild(errorMessage);
+//         }
+//     }
+//     return orderValidity;
+// }
+// //////// Vérifictaion des formulaires //////
+// function checkFormErrors(orderValidity) {
+//     checkNameForm();
+//     checkfirstnameForm();
+//     checkEmailForm();
+//     checkAdresseForm();
+//     checkCityForm();
+//     return orderValidity;
+// }
 
+/////////////////////////////////// Vérification des formulaires ////////////////
+function checkFormErrors(orderValidity) {
+    const info = document.querySelector(".info");
+    const error = document.createElement("div");
+    error.setAttribute("class", "error");
+    info.append(error);
+    let inputIds = ["name", "firstname", "email", "adresse", "city"];
+    let inputTexts = ["nom", "prénom", "mail", "adresse", "ville"];
+    for (let i = 0; i < inputIds.length; i++) {
+        const input = document.getElementById(inputIds[i]);
+        if (input.value === "") {
+            const errorMessage = document.createElement("p");
+            errorMessage.setAttribute("class", "errorMessage");
+            errorMessage.innerHTML = "Merci d'indiquer votre " + inputTexts[i] + ".";
+            orderValidity = false;
+            error.append(errorMessage);
+        } else {
+            if (
+                inputIds[i] === "name" ||
+                inputIds[i] === "firstname" ||
+                inputIds[i] === "city"
+            ) {
+                if (alphaRegexe(input.value) === false) {
+                    const errorMessage = document.createElement("p");
+                    errorMessage.setAttribute("class", "text-error");
+                    errorMessage.innerHTML = "Merci d'écrire votre " + inputTexts[i] + " en toutes lettres.";
+                    orderValidity = false;
+                    error.append(errorMessage);
+                }
+            }
+            if (inputIds[i] === "email") {
+                if (emailRegexe(input.value) === false) {
+                    const errorMessage = document.createElement("p");
+                    errorMessage.setAttribute("class", "text-error");
+                    errorMessage.innerHTML = "Merci d'écrire un " + inputTexts[i] + " valide.";
+                    orderValidity = false;
+                    error.appendChild(errorMessage);
+                }
+            }
+            if (inputIds[i] === "adresse") {
+                if (adressRegexe(input.value) === false) {
+                    const errorMessage = document.createElement("p");
+                    errorMessage.setAttribute("class", "text-error");
+                    errorMessage.innerHTML = "Merci d'écrire une " + inputTexts[i] + " valide.";
+                    orderValidity = false;
+                    error.appendChild(errorMessage);
+                }
+            }
+        }
+    }
     return orderValidity;
 }
+
+function deletErrorDiv() {
+    const error = document.querySelector(".error");
+    error.parentNode.removeChild(error);
+}
+
 //////// bouton de confirmation de commande //////
 function succesOrder() {
     const div = document.querySelector(".successOrder");
     btn.setAttribute("style", "display:none");
-    const succesOrder = document.createElement("button");
-    succesOrder.setAttribute("class", "col btn alert alert-primary mb-5");
-    // succesOrder.setAttribute("href", "commande.html");
-    succesOrder.setAttribute("role", "alert");
-    succesOrder.innerHTML = "<a href= \"commande.html\" class= \"stretched-link\">Confirmaton de votre commande.</a>";
-    div.append(succesOrder);
+    const successOrder = document.createElement("button");
+    successOrder.setAttribute("class", "col btn h1 alert alert-success mb-5 button anim");
+    successOrder.setAttribute("role", "alert");
+    successOrder.innerHTML = "<a href= \"commande.html\" class= \"stretched-link\"><span>Confirmation de votre commande </span></a>";
+    div.append(successOrder);
 }
 
 function post(url, option) {
@@ -316,6 +373,7 @@ function getBasket() {
     const btn = document.getElementById("btn");
     btn.addEventListener("click", function (e) {
         e.preventDefault();
+        deletErrorDiv();
         let orderValidity = true;
         orderValidity = checkFormErrors(orderValidity);
         // orderValidity = checkNameForm(orderValidity);
