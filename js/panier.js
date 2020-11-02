@@ -165,7 +165,7 @@ function post(url, option) {
         .then(response => {
             localStorage.setItem("orderConfirmation", response.orderId);
             localStorage.setItem("orderNameConfirmation", response.contact.firstName);
-            // window.location.href = "commande.html";
+            successOrder();
         })
         .catch(function (err) {
             console.log(err);
@@ -260,11 +260,8 @@ function send() {
         deletErrorDiv();
         let orderValidity = true;
         orderValidity = checkFormErrors(orderValidity);
-        // orderValidity = checkNameForm(orderValidity);
 
         if (orderValidity === true) {
-            // confirm("Confirmez-vous l'envoie de votre commande ?");
-            successOrder();
             sendOrder();
         }
     });
