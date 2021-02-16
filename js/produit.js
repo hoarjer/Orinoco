@@ -7,6 +7,8 @@ function addToBasket(selectedLense) {
     let product = new Camera(id, selectedLense);
     basketContent.push(product);
     localStorage.setItem("basketContent", JSON.stringify(basketContent));
+    let basketNavlink = document.querySelector(".basket");
+    basketNavlink.textContent = "Panier(" + basketContent.length + ")";
 }
 
 ////////////////////////// Ajouter les information produit dans le HTML ////////////////  
@@ -63,16 +65,12 @@ function addProductInfo(response) {
             // rajouter au panier
             successBasketMessage();
             addToBasket(selectedLense);
-            // + 1 article lien nav panier
-            let basketContent = JSON.parse(localStorage.getItem("basketContent"));
-            let basketNavlink = document.querySelector(".basket");
-            basketNavlink.textContent = "Panier(" + basketContent.length + ")";
         } else {
             selectMessage();
         }
 
     });
-////// bouton panier //////
+    ////// bouton panier //////
     const basketBtn = document.createElement("button");
     basketBtn.innerHTML = "<span>Voir le panier </span>";
     basketBtn.setAttribute("class", "btn button btn-dark p-3");
@@ -147,8 +145,7 @@ function getProduct() {
         })
         .catch((err) => {
             console.log(err);
-            // alert("Problème de serveur, merci de revenir plus tard.");
-            addBasketMessage();
+            alert("Problème de serveur, merci de revenir plus tard.");
         });
 
 }

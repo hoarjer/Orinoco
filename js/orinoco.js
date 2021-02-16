@@ -33,7 +33,7 @@ function addProduct(response) {
   document.querySelector("#product-list").appendChild(div);
   div.append(card);
   card.append(link);
-  link.append(img);
+  card.append(img);
   card.append(name);
   card.append(description);
   card.append(lenses);
@@ -43,8 +43,8 @@ function addProduct(response) {
 // Ajouter le nombre d'article du panier //
 function basketContentNav() {
   if (localStorage.length != 0) {
-    let basketContent = JSON.parse(localStorage.getItem("basketContent"));
-    let basketNavlink = document.querySelector(".basket");
+    const basketContent = JSON.parse(localStorage.getItem("basketContent"));
+    const basketNavlink = document.querySelector(".basket");
     basketNavlink.textContent = "Panier(" + basketContent.length + ")";
   }
 }

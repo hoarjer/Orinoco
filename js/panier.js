@@ -1,8 +1,8 @@
 // Ajouter le nombre d'article du panier nav //
 function basketContentNav() {
     if (localStorage.length != 0) {
-        let basketContent = JSON.parse(localStorage.getItem("basketContent"));
-        let basketNavlink = document.querySelector(".basket");
+        const basketContent = JSON.parse(localStorage.getItem("basketContent"));
+        const basketNavlink = document.querySelector(".basket");
         basketNavlink.textContent = "Panier(" + basketContent.length + ")";
     }
 }
@@ -60,7 +60,7 @@ function addBasketProduct(productInfo, productBasket, basketContent, totalPrice)
         }
         localStorage.setItem("basketContent", JSON.stringify(basketContent));
         // Changement du nombre d'article du lien de navigation "panier" //
-        let basketNavlink = document.querySelector(".basket");
+        const basketNavlink = document.querySelector(".basket");
         basketNavlink.textContent = "Panier(" + basketContent.length + ")";
         window.location.href = "panier.html";
     })
@@ -96,8 +96,8 @@ function checkFormErrors(orderValidity) {
     const error = document.createElement("div");
     error.setAttribute("class", "error");
     info.append(error);
-    let inputIds = ["name", "firstname", "email", "adresse", "city"];
-    let inputTexts = ["nom", "prénom", "mail", "adresse", "ville"];
+    const inputIds = ["name", "firstname", "email", "adresse", "city"];
+    const inputTexts = ["nom", "prénom", "mail", "adresse", "ville"];
     for (let i = 0; i < inputIds.length; i++) {
         const input = document.getElementById(inputIds[i]);
         if (input.value === "") {
