@@ -4,9 +4,13 @@ Construire un site e-commerce
 
 ## Bienvenu sur Orinoco !
 
+### Les technologies
+HTML5, CSS3, javaScript, Node.js
+
+### Pour commencer
+
 Pour avoir accès au serveur merci de clonner le repository [JWDP5](https://github.com/OpenClassrooms-Student-Center/JWDP5)
 
-Vous aurez besoin de node et npm installés sur votre ordinateur.
 Du dossier cloné, ouvrez le terminal de commande et tappez "npm install" puis "node server".
 
 Le serveur devrait fonctionner en "localhost" avec le port "3000" par défaut.
